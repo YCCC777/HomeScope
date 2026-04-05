@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於 HomeScope</title>
+  <link rel="icon" href="imag/icon32.png" type="image/png">
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+  <div id="page">
+
+    <!-- Hero -->
+    <section id="hero">
+      <div class="hero-logo"><img src="imag/icon128.png" alt="HomeScope" width="80" height="80" style="border-radius:18px;"></div>
+      <h1 class="hero-title">HomeScope</h1>
+      <p class="hero-tagline">在 591 租屋 / 售屋物件頁面<br>一鍵掌握周邊生活機能與環境風險</p>
+    </section>
+
+    <!-- 功能亮點 -->
+    <section class="content-section">
+      <h2 class="section-heading">功能亮點</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><span class="fc-icon">📍</span><span class="fc-text">自動偵測 591 物件座標</span></div>
+        <div class="feature-card"><span class="fc-icon">🔍</span><span class="fc-text">生活機能一鍵搜尋</span></div>
+        <div class="feature-card"><span class="fc-icon">⚠️</span><span class="fc-text">嫌惡設施快速標記</span></div>
+        <div class="feature-card"><span class="fc-icon">🌍</span><span class="fc-text">液化 / 淹水 / 斷層風險</span></div>
+        <div class="feature-card"><span class="fc-icon">📋</span><span class="fc-text">社區實價登錄溢價分析</span></div>
+        <div class="feature-card"><span class="fc-icon">💰</span><span class="fc-text">貸款試算 + 降價追蹤</span></div>
+        <div class="feature-card"><span class="fc-icon">🏠</span><span class="fc-text">看房清單管理與筆記</span></div>
+        <div class="feature-card"><span class="fc-icon">⚖️</span><span class="fc-text">多物件規格比較</span></div>
+        <div class="feature-card"><span class="fc-icon">🚗</span><span class="fc-text">通勤距離快速計算</span></div>
+      </div>
+    </section>
+
+    <!-- 使用說明 -->
+    <section class="content-section">
+      <h2 class="section-heading">使用方式</h2>
+      <ol class="usage-list">
+        <li>前往 <strong>rent.591.com.tw</strong> 或 <strong>sale.591.com.tw</strong> 的物件詳情頁</li>
+        <li>點擊瀏覽器右上角的 <strong>HomeScope 圖示</strong> 開啟插件</li>
+        <li>點選生活機能按鈕（捷運站、全聯、便利商店等）在 Google Maps 中搜尋</li>
+        <li>收藏物件後，可在「看房清單」管理看房狀態、筆記與評分</li>
+        <li>勾選多筆物件，前往「比較」頁籤進行規格對比</li>
+        <li>在 <strong>⚙️ 設定</strong> 中新增常去地點，搜尋頁將自動顯示通勤距離</li>
+      </ol>
+      <a class="feedback-btn" href="mailto:risachou7@gmail.com">回報問題 / 功能建議</a>
+    </section>
+
+    <!-- 資料來源說明 -->
+    <section class="content-section data-section">
+      <h2 class="section-heading">資料來源與計算方式</h2>
+
+      <div class="data-block">
+        <div class="data-block-title">🌋 土壤液化潛勢</div>
+        <p class="data-block-body">資料來源：<strong>中央地質調查所</strong>（liquid.net.tw）。依物件座標即時查詢，回傳高 / 中 / 低潛勢等級，無資料時顯示灰色。屬全台通用資料，精確度至區域等級。</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">🌊 淹水潛勢</div>
+        <p class="data-block-body">資料來源：<strong>經濟部水利署</strong> GIS 圖台（Layer 116，24 小時 650mm 最嚴峻情境）。以物件座標查詢所在格網，回傳淹水深度等級（1–5 級），無覆蓋區域視為無淹水潛勢。</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">⚡ 活動斷層距離</div>
+        <p class="data-block-body">資料來源：<strong>中央地質調查所地質雲</strong>（134 條活動斷層 GeoJSON）。下載後快取 30 天，在本機計算物件座標至每條斷層線段的最短球面距離（Haversine 公式），標示最近斷層名稱與距離。</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">📋 社區實價登錄溢價分析</div>
+        <p class="data-block-body">資料來自<strong>內政部實價登錄</strong>，經 591 市場 API 取得，本機計算溢價百分比。</p>
+        <p class="data-block-hint">透天厝等無社區 ID 之物件不顯示 · 依社區均價比對，非同棟成交</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">💰 貸款試算</div>
+        <p class="data-block-body"><strong>純本機計算，無外部資料。</strong>以本利平均攤還（PMT）公式即時試算月付金額。</p>
+        <p class="data-block-hint">可調整成數（六 / 七 / 八成）、年期（20 / 30 年）、利率（2% / 2.5% / 3%）</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">📉 降價追蹤</div>
+        <p class="data-block-body">直接從 <strong>591 物件頁面</strong>抓取最新掛牌價，與上次記錄比對顯示漲跌。</p>
+        <p class="data-block-hint">看房清單可一鍵批次更新 · 本機保留最多 10 筆歷史</p>
+      </div>
+
+      <p class="data-note">所有資料均為公開來源，HomeScope 不儲存任何個人資訊，亦不上傳查詢結果。</p>
+    </section>
+
+    <!-- 關於開發者 -->
+    <section class="content-section about-section">
+      <h2 class="section-heading">關於開發者</h2>
+      <div class="risa-logo-wrap">
+        <a href="https://yccc777.github.io/risa-studio/" target="_blank" rel="noopener">
+          <img src="imag/Risa_studio_logo.png" alt="Risa Studio" class="risa-logo">
+        </a>
+      </div>
+      <p class="about-text">HomeScope 由 <a class="about-link" href="https://yccc777.github.io/risa-studio/" target="_blank" rel="noopener"><strong>Risa Studio</strong></a> 開發，從 <a class="about-link" href="https://chromewebstore.google.com/detail/stayscope/khmhjiafkapmhakmpfcgmgikkffejnpm" target="_blank" rel="noopener">StayScope</a>（Airbnb / Booking.com 旅宿評估插件）衍生，專為台灣房地產看屋需求打造。所有資料查詢在本機完成，不蒐集個人資訊。</p>
+      <div class="about-badge">
+        <span>台灣在地開發 · 開源精神</span>
+      </div>
+    </section>
+
+    <!-- 斗內 -->
+    <section class="content-section donate-section">
+      <h2 class="section-heading">支持開發</h2>
+      <p class="donate-desc">HomeScope 完全免費，若覺得好用，歡迎請開發者喝杯咖啡 ☕<br>掃描 QR Code 或點擊連結皆可斗內。</p>
+
+      <div class="qr-grid">
+
+        <!-- Portly（待申請） -->
+        <div class="qr-card">
+          <div class="qr-placeholder">
+            <span>☕</span>
+          </div>
+          <div class="qr-label">Portly</div>
+          <span class="qr-link">（即將開放）</span>
+        </div>
+
+        <!-- 預留第二管道 -->
+        <div class="qr-card qr-card--dimmed">
+          <div class="qr-placeholder" style="opacity:0.25">
+            <span>💳</span>
+          </div>
+          <div class="qr-label" style="color:var(--text-3)">其他方式</div>
+          <span class="qr-link">（陸續更新）</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 更新日誌 -->
+    <section class="content-section">
+      <h2 class="section-heading">更新日誌</h2>
+      <div class="changelog">
+        <div class="cl-item">
+          <span class="cl-ver">v1.1</span>
+          <div class="cl-body">
+            <div class="cl-title">環境風險 + 進階功能</div>
+            <ul class="cl-list">
+              <li>土壤液化 / 淹水潛勢 / 活動斷層距離</li>
+              <li>社區實價登錄溢價分析</li>
+              <li>貸款試算（成數 / 年期 / 利率）</li>
+              <li>降價追蹤 + 看房清單大改版</li>
+              <li>通勤距離計算（常去地點設定）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cl-item">
+          <span class="cl-ver">v1.0</span>
+          <div class="cl-body">
+            <div class="cl-title">MVP — 591 租屋 / 售屋支援</div>
+            <ul class="cl-list">
+              <li>591 租屋（Nuxt SPA）+ 售屋座標提取</li>
+              <li>生活機能 10 項 + 嫌惡設施 7 項</li>
+              <li>看房清單（狀態 / 筆記 / 評分）</li>
+              <li>多物件比較（規格 strip + 物件卡）</li>
+              <li>Nominatim 反向地理編碼（繁中地址）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="about-footer">
+      <button id="btn-close" class="close-btn">關閉</button>
+      <span class="footer-copy">HomeScope v1.1.0 · Made by Risa Studio</span>
+      <a class="footer-privacy" href="privacy.html" target="_blank" rel="noopener">隱私政策</a>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('btn-close').addEventListener('click', () => window.close());
+  </script>
+</body>
+</html>

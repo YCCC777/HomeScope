@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeScope</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header id="header">
+      <img id="header-icon" src="imag/icon32.png" alt="HomeScope" width="22" height="22" style="vertical-align:middle;border-radius:4px;">
+      <span id="header-title">HomeScope</span>
+      <button id="btn-settings" class="settings-btn" title="設定">⚙️</button>
+    </header>
+
+    <!-- 頁籤列 -->
+    <nav id="tab-bar">
+      <button class="tab-btn active" data-tab="search"    id="tab-search">🔍 搜尋</button>
+      <button class="tab-btn"        data-tab="favorites" id="tab-favorites">🏠 看房清單</button>
+      <button class="tab-btn"        data-tab="compare"   id="tab-compare">⚖️ 比較</button>
+    </nav>
+
+    <!-- ===== 頁籤：搜尋 ===== -->
+    <div id="pane-search" class="tab-pane active">
+
+      <!-- 狀態列 + 物件資訊 -->
+      <div id="info-section">
+        <div id="status-bar" class="state-detecting">
+          <div class="status-main">
+            <span id="status-dot"></span>
+            <span id="status-text">偵測物件座標中...</span>
+          </div>
+          <div id="detected-name" class="detected-name hidden"></div>
+        </div>
+
+        <div id="property-info" class="hidden">
+          <div id="source-row">
+            <span id="source-badge" class="source-badge"></span>
+            <span id="address-text" class="address-text"></span>
+          </div>
+          <!-- 物件規格列（有資料時顯示） -->
+          <div id="specs-row" class="specs-row hidden"></div>
+          <!-- 通勤距離（有設定常去地點時顯示） -->
+          <div id="commute-chips" class="commute-chips hidden"></div>
+          <!-- 座標行 -->
+          <button id="btn-pin" class="pin-btn" title="在 Google Maps 查看物件位置">
+            <span class="pin-icon">📍</span>
+            <span id="coord-lat">--</span><span class="coord-sep">, </span><span id="coord-lng">--</span>
+            <span class="pin-badge" id="label-pin-badge">在地圖查看</span>
+          </button>
+          <!-- 收藏 -->
+          <button id="btn-save" class="save-btn">⭐ <span id="label-save">收藏</span></button>
+          <!-- 工具列：link-out 查詢 -->
+          <div class="tool-row">
+            <button id="btn-haunted" class="tool-btn" title="查詢凶宅紀錄"><span id="label-haunted">凶宅查詢</span></button>
+            <button id="btn-lvr"     class="tool-btn" title="實價登錄"><span id="label-lvr">實價登錄</span></button>
+            <button id="btn-school"  class="tool-btn" title="查詢學區"><span id="label-school">學區查詢</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 搜尋區塊（座標就緒後顯示） -->
+      <div id="search-sections" class="hidden">
+
+        <div class="map-hint"><span id="label-map-center">搜尋地圖已以物件為中心</span></div>
+
+        <!-- 生活機能 -->
+        <section class="group" id="section-poi">
+          <div class="section-header">
+            <h3 class="group-label" id="label-poi">生活機能</h3>
+            <div class="radius-wrap">
+              <label class="radius-label" id="label-radius">半徑</label>
+              <select id="select-radius" class="radius-select">
+                <option value="17">500m</option>
+                <option value="15" selected>1km</option>
+                <option value="14">2km</option>
+                <option value="13">5km</option>
+              </select>
+            </div>
+          </div>
+          <div class="cat-grid" id="poi-grid">
+            <button class="btn-cat" id="btn-transit">🚇 捷運站</button>
+            <button class="btn-cat" id="btn-supermarket">🛒 全聯</button>
+            <button class="btn-cat" id="btn-convenience">🏪 便利商店</button>
+            <button class="btn-cat" id="btn-school">🏫 國小</button>
+            <button class="btn-cat" id="btn-junior">🏫 國中</button>
+            <button class="btn-cat" id="btn-hospital">🏥 醫院</button>
+            <button class="btn-cat" id="btn-park">🌳 公園</button>
+            <button class="btn-cat" id="btn-bank">🏦 銀行</button>
+            <button class="btn-cat" id="btn-mcdonalds">🍟 麥當勞</button>
+            <button class="btn-cat" id="btn-starbucks">☕ 星巴克</button>
+          </div>
+        </section>
+
+        <!-- 自訂地點（動態渲染） -->
+        <section class="group" id="section-custom">
+          <h3 class="group-label">📍 自訂地點</h3>
+          <div class="cat-grid" id="custom-poi-grid"></div>
+        </section>
+
+        <!-- 嫌惡設施（預設收折） -->
+        <section class="group" id="section-hazards">
+          <button class="section-toggle" id="btn-hazards-toggle">
+            <h3 class="group-label group-label-warn" id="label-hazards">⚠️ 嫌惡設施</h3>
+            <span class="toggle-arrow" id="hazards-arrow">▶</span>
+          </button>
+          <div class="cat-grid hazard-grid hidden" id="hazards-body">
+            <button class="btn-cat btn-hazard" id="btn-temple">🏮 宮廟</button>
+            <button class="btn-cat btn-hazard" id="btn-funeral">⚰️ 殯儀館</button>
+            <button class="btn-cat btn-hazard" id="btn-columbarium">🪦 納骨塔</button>
+            <button class="btn-cat btn-hazard" id="btn-ktv">🍺 小吃部KTV</button>
+            <button class="btn-cat btn-hazard" id="btn-gas-station">⛽ 加油站</button>
+            <button class="btn-cat btn-hazard" id="btn-power-tower">⚡ 高壓電塔</button>
+            <button class="btn-cat btn-hazard" id="btn-garbage">🗑️ 垃圾場</button>
+          </div>
+        </section>
+
+        <!-- 環境風險（預設收折） -->
+        <section class="group" id="section-geo-risk">
+          <button class="section-toggle" id="btn-geo-risk-toggle">
+            <h3 class="group-label group-label-geo">🌍 環境風險</h3>
+            <span class="toggle-arrow geo-arrow" id="geo-risk-arrow">▶</span>
+          </button>
+          <div id="geo-risk-body" class="hidden">
+            <div class="geo-risk-row">
+              <span class="geo-risk-label">土壤液化<span class="geo-tip" data-tip="高潛勢：地震時地盤可能液化，建築損壞風險高&#10;中潛勢：有一定液化風險，建議查詢建築基礎資料&#10;低潛勢：液化風險低">ⓘ</span></span>
+              <span class="geo-risk-value" id="geo-val-liquid">—</span>
+            </div>
+            <div class="geo-risk-row">
+              <span class="geo-risk-label">淹水潛勢<span class="geo-tip" data-tip="情境：24 小時累積降雨 650mm&#10;（百年重現期最嚴峻情境）">ⓘ</span></span>
+              <span class="geo-risk-value" id="geo-val-flood">—</span>
+            </div>
+            <div class="geo-risk-row">
+              <span class="geo-risk-label">活動斷層<span class="geo-tip" data-tip="距最近活動斷層直線距離&#10;&lt;1km 高風險・1–3km 中等・&gt;3km 低風險">ⓘ</span></span>
+              <span class="geo-risk-value" id="geo-val-fault">—</span>
+            </div>
+            <div class="geo-risk-source">
+              資料來源：土壤液化、活動斷層 ─ 經濟部地質調查及礦業管理中心<br>
+              淹水潛勢 ─ 經濟部水利署
+            </div>
+          </div>
+        </section>
+
+        <!-- 社區成交行情（售屋有 communityId 時顯示） -->
+        <section class="group hidden" id="section-market">
+          <button class="section-toggle" id="btn-market-toggle">
+            <h3 class="group-label">💰 價格分析</h3>
+            <span class="toggle-arrow" id="market-arrow">▶</span>
+          </button>
+          <div id="market-body" class="hidden">
+            <div id="market-content"></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- 非物件頁面提示 -->
+      <div id="not-listing" class="hidden">
+        <div class="empty-state">
+          <div class="empty-icon">🏠</div>
+          <p id="label-not-listing">請前往 591 租屋或售屋的物件詳情頁使用</p>
+          <div class="platform-hint">
+            <span class="ph-badge ph-rent">591租屋</span>
+            <span class="ph-badge ph-sale">591售屋</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pane-search -->
+
+    <!-- ===== 頁籤：看房清單 ===== -->
+    <div id="pane-favorites" class="tab-pane">
+
+      <!-- 狀態篩選 + 類型篩選 + 更新價格 -->
+      <div class="fav-filter-wrap">
+        <button id="btn-refresh-prices" class="fav-refresh-btn" title="更新所有收藏價格">🔄 <span id="label-refresh-prices">追蹤房價</span></button>
+        <div id="fav-filter-bar">
+          <button class="filter-pill active" data-filter="ALL"       id="fav-pill-all">全部</button>
+          <button class="filter-pill"        data-filter="unvisited" id="fav-pill-unvisited">未看</button>
+          <button class="filter-pill"        data-filter="scheduled" id="fav-pill-scheduled">預約中</button>
+          <button class="filter-pill"        data-filter="visited"   id="fav-pill-visited">已看</button>
+        </div>
+        <div id="fav-type-bar">
+          <button class="type-pill active" data-type="ALL"    id="type-pill-all">全部</button>
+          <button class="type-pill"        data-type="rent"   id="type-pill-rent">租屋</button>
+          <button class="type-pill"        data-type="sale"   id="type-pill-sale">售屋</button>
+        </div>
+        <div id="fav-sort-bar">
+          <span class="sort-label">依</span>
+          <button class="sort-pill active" data-sort="time">收藏時間</button>
+          <button class="sort-pill"        data-sort="price">價格</button>
+          <button class="sort-pill"        data-sort="rating">評分</button>
+        </div>
+      </div>
+
+      <!-- 批次操作列 -->
+      <div id="fav-batch-bar" class="hidden">
+        <span id="fav-batch-count"></span>
+        <button id="btn-batch-delete" class="batch-delete-btn" disabled>🗑️ <span id="label-batch-delete">刪除已選</span></button>
+      </div>
+
+      <!-- 收藏列表 -->
+      <div id="fav-list"></div>
+
+      <!-- 空狀態 -->
+      <div id="fav-empty" class="hidden">
+        <div class="empty-state">
+          <div class="empty-icon">🏠</div>
+          <p id="label-fav-empty">尚無看房紀錄</p>
+          <p id="label-fav-empty-hint" class="empty-hint">在搜尋頁點擊 ⭐ 收藏目前物件</p>
+        </div>
+      </div>
+
+      <!-- 匯出 / 匯入 -->
+      <div id="fav-actions">
+        <button id="btn-export" class="action-btn">📤 <span id="label-export">匯出 JSON</span></button>
+        <button id="btn-import" class="action-btn">📥 <span id="label-import">匯入 JSON</span></button>
+        <input type="file" id="import-file-input" accept=".json" class="hidden">
+      </div>
+
+      <!-- 最近瀏覽 -->
+      <div id="history-section">
+        <button id="btn-history-toggle" class="history-toggle">
+          <span>🕒 最近瀏覽</span>
+          <span id="history-count" class="history-count">0</span>
+          <span id="history-arrow" class="history-arrow">▶</span>
+        </button>
+        <div id="history-list" class="hidden"></div>
+        <div id="history-footer" class="hidden">
+          <button id="btn-clear-history" class="history-clear-btn">🗑️ 清除歷史</button>
+        </div>
+      </div>
+
+    </div><!-- /pane-favorites -->
+
+    <!-- ===== 頁籤：比較 ===== -->
+    <div id="pane-compare" class="tab-pane">
+
+      <div id="compare-grid"></div>
+
+      <div id="compare-action-bar" class="compare-action-bar hidden">
+        <button id="btn-share-copy" class="share-copy-btn">📋 <span id="label-share-copy">複製比較結果</span></button>
+      </div>
+
+      <div id="compare-empty">
+        <div class="empty-state">
+          <div class="empty-icon">⚖️</div>
+          <p id="label-compare-empty">請在看房清單選取 2–5 筆物件</p>
+        </div>
+      </div>
+
+    </div><!-- /pane-compare -->
+
+    <!-- Footer 品牌條 -->
+    <footer id="footer">
+      <a id="footer-brand" class="footer-brand" href="#" title="關於 HomeScope">
+        <span class="footer-brand-main" id="footer-brand-main">🏠 HomeScope</span>
+        <span class="footer-brand-sub" id="footer-brand-sub">使用說明 · 意見回饋</span>
+      </a>
+    </footer>
+
+  </div>
+
+  <script src="i18n/locales.js"></script>
+  <script src="lib/storage.js"></script>
+  <script src="popup-history.js"></script>
+  <script src="popup-favorites.js"></script>
+  <script src="popup-compare.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeScope — 隱私權政策</title>
+  <link rel="icon" href="imag/icon32.png" type="image/png">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif;
+      background: #1C1C1E;
+      color: #F5F5F7;
+      line-height: 1.7;
+      padding: 48px 24px;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+    .brand-name { font-size: 22px; font-weight: 700; color: #30D196; }
+    .brand-sub  { font-size: 13px; color: #8E8E93; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .updated { font-size: 13px; color: #8E8E93; margin-bottom: 40px; }
+    h2 { font-size: 17px; font-weight: 600; color: #30D196; margin: 32px 0 12px; }
+    p  { font-size: 15px; color: #C0C0C4; margin-bottom: 12px; }
+    ul { list-style: none; padding: 0; margin-bottom: 12px; }
+    ul li {
+      font-size: 15px;
+      color: #C0C0C4;
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    ul li::before { content: "•"; position: absolute; left: 0; color: #30D196; }
+    .highlight-box {
+      background: #2C2C2E;
+      border: 1px solid rgba(48,209,150,0.25);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .highlight-box p { margin-bottom: 0; color: #F5F5F7; font-weight: 500; }
+    a { color: #5AC8FA; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+      color: #8E8E93;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand">
+      <div>
+        <div class="brand-name">🏠 HomeScope</div>
+        <div class="brand-sub">by Risa Studio</div>
+      </div>
+    </div>
+
+    <h1>隱私權政策</h1>
+    <div class="updated">最後更新：2026 年 4 月</div>
+
+    <div class="highlight-box">
+      <p>HomeScope 不蒐集、不儲存於任何伺服器、亦不傳輸任何個人資料。Risa Studio 沒有營運任何伺服器或資料庫，所有資料都留在您自己的裝置上。</p>
+    </div>
+
+    <h2>插件讀取哪些資料</h2>
+    <p>當您造訪 591 租屋或售屋物件詳情頁時，插件從頁面讀取以下公開資訊：</p>
+    <ul>
+      <li>物件的 GPS 座標（緯度 / 經度）</li>
+      <li>物件名稱與掛牌價格</li>
+      <li>物件規格（坪數、格局、屋齡、樓層等）</li>
+    </ul>
+    <p>以上資料均來自頁面公開的 DOM 與嵌入腳本，與一般瀏覽者看到的資訊相同。</p>
+
+    <h2>資料儲存位置</h2>
+    <p>所有資料僅儲存於您自己的瀏覽器中：</p>
+    <ul>
+      <li><strong>chrome.storage.local</strong>（本機）— 收藏清單、看房筆記、評分、價格歷史記錄、斷層資料快取</li>
+    </ul>
+    <p>Risa Studio 與任何第三方均無法存取上述資料。</p>
+
+    <h2>對外網路請求</h2>
+    <p>為提供環境風險與地址資訊，插件會在您開啟物件頁面時，自動向以下<strong>台灣政府或公開資料來源</strong>發出查詢：</p>
+    <ul>
+      <li><strong>nominatim.openstreetmap.org</strong>（OpenStreetMap Nominatim）— 以座標反查繁中地址（reverse geocoding）</li>
+      <li><strong>www.liquid.net.tw</strong>（中央地質調查所）— 查詢土壤液化潛勢等級</li>
+      <li><strong>maps.wra.gov.tw</strong>（經濟部水利署）— 查詢淹水潛勢等級</li>
+      <li><strong>www.geologycloud.tw</strong>（中央地質調查所地質雲）— 下載活動斷層 GeoJSON（快取 30 天）</li>
+      <li><strong>bff-market.591.com.tw</strong>（591 市場 API）— 查詢社區實價登錄成交記錄</li>
+    </ul>
+    <p>上述請求僅傳送物件座標或社區 ID，不含任何可識別個人身份的資訊。查詢結果在本機處理後即丟棄，不另行儲存（斷層 GeoJSON 除外，快取於本機）。</p>
+    <p>此外，當您點擊生活機能或嫌惡設施按鈕時，瀏覽器會開啟 Google Maps 分頁，此為標準瀏覽器操作，等同於在網址列手動輸入 URL。</p>
+
+    <h2>權限說明</h2>
+    <p>插件申請以下 Chrome 權限：</p>
+    <ul>
+      <li><strong>activeTab / tabs</strong> — 讀取目前分頁的 URL，並注入座標提取腳本</li>
+      <li><strong>scripting</strong> — 在 591 物件頁面執行提取腳本，存取頁面 JS 全域變數（如 <code>window.__NUXT__</code>、<code>window.dataLayer</code>）以取得座標與物件規格</li>
+      <li><strong>storage</strong> — 將收藏清單、筆記、評分等儲存於 <code>chrome.storage.local</code></li>
+      <li><strong>host_permissions</strong>（rent.591.com.tw、sale.591.com.tw 及各資料來源網域）— Chrome MV3 要求明確列出可注入腳本及可發出請求的網域；不會將任何資料傳送至 Risa Studio</li>
+    </ul>
+
+    <h2>無追蹤、無分析</h2>
+    <p>HomeScope 不含任何分析套件、崩潰回報服務、廣告 SDK 或遙測機制。Risa Studio 無法得知插件的使用人數、使用頻率或任何使用行為。</p>
+
+    <h2>兒童隱私</h2>
+    <p>HomeScope 不蒐集任何使用者資訊。由於資料從未離開您的裝置，不存在任何年齡層的隱私疑慮。</p>
+
+    <h2>政策變更</h2>
+    <p>若 HomeScope 的隱私作法有所變更（例如新增資料來源），本政策將隨之更新，並同步更新插件版本號。</p>
+
+    <h2>聯絡方式</h2>
+    <p>如有任何疑問，歡迎透過 <a href="mailto:risachou7@gmail.com">risachou7@gmail.com</a> 與我們聯繫。</p>
+
+    <footer>
+      &copy; 2026 Risa Studio &nbsp;·&nbsp; HomeScope Chrome Extension
+    </footer>
+
+  </div>
+</body>
+</html>

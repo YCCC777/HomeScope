@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeScope 設定</title>
+  <link rel="icon" href="imag/icon32.png" type="image/png">
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div id="settings-app">
+
+    <header id="header">
+      <img src="imag/icon32.png" alt="HomeScope" width="22" height="22" style="vertical-align:middle;border-radius:4px;">
+      <span>HomeScope 設定</span>
+    </header>
+
+    <main id="settings-main">
+
+      <!-- 自訂搜尋項目 -->
+      <section class="settings-section">
+        <h2 class="settings-title">🔍 自訂搜尋項目</h2>
+        <p class="settings-hint">在 591 物件頁面新增自己想搜尋的地點類型，點擊後直接開 Google Maps</p>
+
+        <!-- 新增表單 -->
+        <div class="add-form">
+          <div class="add-form-row">
+            <input id="input-label"   class="form-input label-input" type="text" maxlength="10" placeholder="名稱（如：健身房）">
+            <input id="input-keyword" class="form-input kw-input"    type="text" maxlength="30" placeholder="Google Maps 搜尋字（如：健身房）">
+            <button id="btn-add" class="add-btn">＋ 新增</button>
+          </div>
+          <div id="add-error" class="add-error hidden">請填寫所有欄位</div>
+        </div>
+
+        <!-- 現有項目列表 -->
+        <div id="custom-poi-list" class="custom-poi-list"></div>
+
+        <!-- 內建項目說明 -->
+        <div class="built-in-note">
+          <span class="note-label">內建項目（不可刪除）</span>
+          <div class="built-in-grid">
+            <span>🚇 捷運站</span><span>🛒 全聯</span><span>🏪 便利商店</span>
+            <span>🏫 國小</span><span>🏫 國中</span><span>🏥 醫院</span>
+            <span>🌳 公園</span><span>🏦 銀行</span><span>🍟 麥當勞</span><span>☕ 星巴克</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 常去地點 -->
+      <section class="settings-section">
+        <h2 class="settings-title">🚗 常去地點</h2>
+        <p class="settings-hint">設定最多 5 個常去地點，物件頁面自動顯示直線距離，點擊開啟導航</p>
+
+        <div class="add-form" id="commute-form">
+          <div class="add-form-row">
+            <input id="commute-label" class="form-input label-input" type="text" maxlength="8" placeholder="名稱（如：公司）">
+            <input id="commute-addr"  class="form-input kw-input"   type="text" placeholder="地址（如：台北市信義區信義路五段7號）">
+            <button id="btn-commute-add" class="add-btn">＋ 新增</button>
+          </div>
+          <div id="commute-status" class="hidden"></div>
+        </div>
+
+        <div id="commute-list" class="custom-poi-list"></div>
+        <p class="settings-hint" style="margin:0;margin-top:4px">顯示直線距離，非實際行走或開車時間</p>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="lib/storage.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>
