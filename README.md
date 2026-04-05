@@ -1,5 +1,7 @@
 # 🏠 HomeScope
 
+![HomeScope](imag/440x280.png)
+
 > 在 591 租屋／售屋物件頁面，一鍵掌握周邊生活機能與環境風險的 Chrome 擴充功能。
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-即將上架-blue)](https://chromewebstore.google.com)
