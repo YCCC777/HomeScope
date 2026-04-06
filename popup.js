@@ -254,11 +254,14 @@ function handleResponse(response) {
       _checkPriceChange(merged);
     });
 
-    // 社區成交行情
+    // 社區成交行情 + 社區資訊按鈕
     if (response.communityId) {
       currentData.communityId   = response.communityId;
       currentData.communityName = response.communityName || null;
       showMarketSection(response.communityId);
+      show('community-row');
+    } else {
+      hide('community-row');
     }
   }
 
@@ -374,6 +377,11 @@ function bindSearchButtons() {
   on('btn-school', () => {
     const addr = encodeURIComponent((currentData?.address || currentData?.name || '') + ' 國小學區');
     openUrl(`https://www.google.com/search?q=${addr}`);
+  });
+  on('btn-community', () => {
+    if (currentData?.communityId) {
+      openUrl(`https://market.591.com.tw/${currentData.communityId}/overview`);
+    }
   });
 
   // 收藏切換
